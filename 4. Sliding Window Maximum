@@ -1,0 +1,23 @@
+// Leetcode
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int i = 0, j = 0, n = nums.length, index = 0;
+        int ans[] = new int[n-k+1];
+        Deque<Integer> q = new ArrayDeque<>();
+        while(j<n){
+            while(!q.isEmpty() && q.peekLast()<nums[j]){
+                q.pollLast();
+            }
+            q.offer(nums[j]);
+            if(j-i+1 == k){
+                ans[index++] = q.peek();
+                if(nums[i] == q.peek()){
+                    q.poll();
+                }
+                i++;
+            }
+            j++;
+        }
+        return ans;
+    }
+}
